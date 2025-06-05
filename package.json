@@ -4,7 +4,7 @@
   "description": "A dark theme designed based on principles for visual comfort and productivity during long coding or writing sessions.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/solace-dark.git"
+    "url": "https://github.com/chrismannina/solace-dark.git"
   },
   "keywords": [
     "theme",
@@ -17,7 +17,7 @@
     "notepad++",
     "terminal"
   ],
-  "author": "Your Name",
+  "author": "Chris Mannina",
   "license": "MIT",
   "workspaces": [
     "packages/*"

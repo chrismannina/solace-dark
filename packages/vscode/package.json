@@ -3,7 +3,7 @@
   "displayName": "Solace Dark Theme",
   "description": "A dark theme designed based on principles for visual comfort and productivity during long coding sessions.",
   "version": "1.0.0",
-  "publisher": "yourusername",
+  "publisher": "chrismannina",
   "engines": {
     "vscode": "^1.74.0"
   },
@@ -35,13 +35,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/solace-dark.git",
+    "url": "https://github.com/chrismannina/solace-dark.git",
     "directory": "packages/vscode"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/solace-dark/issues"
+    "url": "https://github.com/chrismannina/solace-dark/issues"
   },
-  "homepage": "https://github.com/yourusername/solace-dark/tree/main/packages/vscode",
+  "homepage": "https://github.com/chrismannina/solace-dark/tree/main/packages/vscode",
   "license": "MIT",
   "icon": "icon.png",
   "galleryBanner": {
