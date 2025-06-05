@@ -1,0 +1,51 @@
+{
+  "name": "solace-dark-theme",
+  "displayName": "Solace Dark Theme",
+  "description": "A dark theme designed based on principles for visual comfort and productivity during long coding sessions.",
+  "version": "1.0.0",
+  "publisher": "yourusername",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "keywords": [
+    "theme",
+    "dark",
+    "color-theme",
+    "productivity",
+    "comfort"
+  ],
+  "contributes": {
+    "themes": [
+      {
+        "label": "Solace Dark",
+        "uiTheme": "vs-dark",
+        "path": "./themes/solace-dark-color-theme.json"
+      }
+    ]
+  },
+  "scripts": {
+    "package": "vsce package",
+    "publish": "vsce publish"
+  },
+  "devDependencies": {
+    "vsce": "^2.15.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/solace-dark.git",
+    "directory": "packages/vscode"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/solace-dark/issues"
+  },
+  "homepage": "https://github.com/yourusername/solace-dark/tree/main/packages/vscode",
+  "license": "MIT",
+  "icon": "icon.png",
+  "galleryBanner": {
+    "color": "#121212",
+    "theme": "dark"
+  }
+} 

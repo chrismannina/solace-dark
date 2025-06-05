@@ -1,0 +1,154 @@
+/* Solace Dark Obsidian Theme Snippet */
+
+.theme-dark {
+  /* Core Colors */
+  --background-primary: #121212;
+  --background-primary-alt: #181818; /* Slightly lighter background */
+  --background-secondary: #1E1E1E;   /* Slightly darker background */
+  --background-secondary-alt: #121212;
+  --text-normal: #ECECEC;
+  --text-muted: #8A8A8A;
+  --text-accent: #65CCBB; /* Teal for links */
+  --text-accent-hover: #8FF0E0;
+  --text-selection: #FFFFFF; /* Text on selection */
+  --background-modifier-border: #3B3B3B;
+  --background-modifier-hover: #1E1E1E; 
+  --background-modifier-active: #2A2A2A; /* e.g., active file */
+  --background-modifier-selected: #264F78; /* Selection background */
+  --interactive-accent: #B284E0; /* Purple for interactive elements like buttons */
+  --interactive-accent-hover: #C89AEB;
+
+  /* Specific UI Elements */
+  --titlebar-background: #121212;
+  --titlebar-text-color: #ECECEC;
+  --sidebar-background: #181818;
+  --sidebar-border-color: #3B3B3B;
+  --tab-text-color: #8A8A8A;
+  --tab-text-color-focused: #ECECEC;
+  --tab-background-focused: #1E1E1E;
+  --tab-background-unfocused: #121212;
+
+  /* Editor specific */
+  --editor-background: #121212;
+  --editor-caret-color: #ECECEC;
+  --editor-selection-background: #264F78;
+  --editor-line-highlight: #1E1E1E;
+}
+
+/* Apply base colors */
+.workspace, .workspace-leaf {
+  background-color: var(--background-primary);
+  color: var(--text-normal);
+}
+
+/* Link Styling */
+.markdown-preview-view a,
+.cm-s-obsidian span.cm-link,
+.cm-s-obsidian span.cm-url {
+  color: var(--text-accent);
+  text-decoration: none;
+}
+.markdown-preview-view a:hover,
+.cm-s-obsidian span.cm-link:hover,
+.cm-s-obsidian span.cm-url:hover {
+  color: var(--text-accent-hover);
+  text-decoration: underline;
+}
+
+/* Editor (Source mode) colors */
+.cm-s-obsidian,
+.markdown-source-view.mod-cm6 .cm-scroller {
+  background-color: var(--editor-background);
+  color: var(--text-normal);
+}
+
+/* CodeMirror syntax highlighting in editor */
+.cm-s-obsidian .cm-comment { color: #8A8A8A; font-style: italic; }
+.cm-s-obsidian .cm-keyword { color: #B284E0; }
+.cm-s-obsidian .cm-string { color: #E4A567; }
+.cm-s-obsidian .cm-number { color: #DE909D; }
+.cm-s-obsidian .cm-def { color: #65CCBB; } /* function/variable definitions */
+.cm-s-obsidian .cm-variable { color: #ECECEC; } /* variable usage */
+.cm-s-obsidian .cm-variable-2 { color: #65CCBB; } /* parameters, other vars */
+.cm-s-obsidian .cm-property { color: #65CCBB; } /* object properties */
+.cm-s-obsidian .cm-operator { color: #ECECEC; }
+.cm-s-obsidian .cm-meta { color: #8A8A8A; } /* e.g., frontmatter keys */
+.cm-s-obsidian .cm-tag { color: #B284E0; } /* HTML/Markdown tags */
+.cm-s-obsidian .cm-attribute { color: #65CCBB; } /* HTML attributes */
+.cm-s-obsidian .cm-qualifier { color: #E4A567; } /* CSS class/id */
+.cm-s-obsidian .cm-header { color: #B284E0; font-weight: bold; }
+.cm-s-obsidian .cm-hr { color: #8A8A8A; }
+.cm-s-obsidian .cm-strong { font-weight: bold; }
+.cm-s-obsidian .cm-em { font-style: italic; }
+
+/* Preview mode code block and inline code */
+.markdown-preview-view code {
+  color: #E4A567;
+  background-color: #1E1E1E;
+  padding: 0.2em 0.4em;
+  margin: 0;
+  font-size: 85%;
+  border-radius: 3px;
+}
+
+.markdown-preview-view pre > code {
+  font-size: 100%;
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+  color: #ECECEC; /* Default code block text */
+}
+
+.markdown-preview-view pre {
+  background-color: #1E1E1E;
+  padding: 1em;
+  border-radius: 4px;
+  overflow: auto;
+}
+
+/* Preview Syntax Highlighting (using Prism variables if available) */
+.markdown-preview-view .token.comment,
+.markdown-preview-view .token.prolog,
+.markdown-preview-view .token.doctype,
+.markdown-preview-view .token.cdata { color: #8A8A8A; font-style: italic; }
+
+.markdown-preview-view .token.punctuation { color: #ECECEC; }
+
+.markdown-preview-view .token.property,
+.markdown-preview-view .token.tag,
+.markdown-preview-view .token.boolean,
+.markdown-preview-view .token.number,
+.markdown-preview-view .token.constant,
+.markdown-preview-view .token.symbol,
+.markdown-preview-view .token.deleted { color: #DE909D; } /* Pink for numbers/constants */
+
+.markdown-preview-view .token.selector,
+.markdown-preview-view .token.attr-name,
+.markdown-preview-view .token.string,
+.markdown-preview-view .token.char,
+.markdown-preview-view .token.builtin,
+.markdown-preview-view .token.inserted { color: #E4A567; } /* Orange for strings */
+
+.markdown-preview-view .token.operator,
+.markdown-preview-view .token.entity,
+.markdown-preview-view .token.url,
+.language-css .token.string,
+.style .token.string { color: #ECECEC; background: none; }
+
+.markdown-preview-view .token.atrule,
+.markdown-preview-view .token.attr-value,
+.markdown-preview-view .token.keyword { color: #B284E0; } /* Purple for keywords */
+
+.markdown-preview-view .token.function,
+.markdown-preview-view .token.class-name { color: #65CCBB; } /* Teal for functions */
+
+.markdown-preview-view .token.regex,
+.markdown-preview-view .token.important,
+.markdown-preview-view .token.variable { color: #ECECEC; }
+
+.markdown-preview-view .token.important,
+.markdown-preview-view .token.bold { font-weight: bold; }
+.markdown-preview-view .token.italic { font-style: italic; }
+
+.markdown-preview-view .token.entity { cursor: help; } 

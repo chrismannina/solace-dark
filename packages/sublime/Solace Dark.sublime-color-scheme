@@ -1,0 +1,113 @@
+{
+  "name": "Solace Dark",
+  "author": "Your Name Here", // Optional: Add your name
+  "variables": {
+    "background": "#121212",
+    "foreground": "#ECECEC",
+    "caret": "#ECECEC",
+    "selection": "#264F78",
+    "line_highlight": "#1E1E1E",
+    "comment": "#8A8A8A",
+    "keyword": "#B284E0",
+    "string": "#E4A567",
+    "number": "#DE909D",
+    "function": "#65CCBB",
+    "type": "#65CCBB", // Using Teal for types/classes too
+    "variable": "#ECECEC",
+    "constant": "#DE909D",
+    "tag": "#B284E0",
+    "attribute": "#65CCBB",
+    "invalid": "#FF6B6B", // A contrasting red for errors
+    "deprecated": "#FFBDBD", // Lighter red/pink for deprecated
+    "guide": "#3B3B3B",
+    "active_guide": "#505050"
+  },
+  "globals": {
+    "background": "var(background)",
+    "foreground": "var(foreground)",
+    "caret": "var(caret)",
+    "block_caret": "var(caret)",
+    "line_highlight": "var(line_highlight)",
+    "selection": "var(selection)",
+    "selection_border": "color(var(selection) blend(#FFFFFF 10%))", // Slightly lighter border
+    "selection_foreground": "#FFFFFF", // Ensure selected text is readable
+    "selection_corner_style": "round",
+    "find_highlight": "color(var(string) alpha(0.7))", // Use string color for find highlight
+    "find_highlight_foreground": "#000000",
+    "guide": "var(guide)",
+    "active_guide": "var(active_guide)",
+    "stack_guide": "var(guide)",
+    "highlight": "#FFFFFF30", // General highlight (e.g., bracket match)
+    "brackets_options": "underline",
+    "bracket_contents_options": "underline",
+    "tags_options": "underline",
+    "gutter": "var(background)",
+    "gutter_foreground": "color(var(comment) alpha(0.7))",
+    "line_numbers": "color(var(comment) alpha(0.7))",
+    "line_numbers_foreground": "color(var(comment) alpha(0.7))",
+    "shadow": "#00000010", // Subtle shadow for popups
+    "accent": "var(keyword)" // Use purple as a general accent
+  },
+  "rules": [
+    // Comments
+    { "scope": "comment", "foreground": "var(comment)", "font_style": "italic" },
+    { "scope": "punctuation.definition.comment", "foreground": "var(comment)", "font_style": "italic" },
+    // Keywords
+    { "scope": "keyword, storage.type, storage.modifier", "foreground": "var(keyword)" },
+    { "scope": "keyword.control", "foreground": "var(keyword)" },
+    { "scope": "keyword.operator", "foreground": "var(foreground)" }, // Default for operators
+    { "scope": "keyword.operator.new", "foreground": "var(keyword)" },
+    { "scope": "keyword.operator.logical", "foreground": "var(keyword)" },
+    // Strings
+    { "scope": "string", "foreground": "var(string)" },
+    { "scope": "string.quoted", "foreground": "var(string)" },
+    { "scope": "punctuation.definition.string", "foreground": "var(string)" },
+    // Numbers & Constants
+    { "scope": "constant.numeric", "foreground": "var(number)" },
+    { "scope": "constant.language", "foreground": "var(constant)" }, // true, false, null
+    { "scope": "constant.character", "foreground": "var(string)" }, // Character literals like strings
+    { "scope": "constant.character.escape", "foreground": "var(number)" }, // Escapes like \n
+    { "scope": "variable.other.constant", "foreground": "var(constant)" },
+    // Functions & Methods
+    { "scope": "entity.name.function, support.function", "foreground": "var(function)" },
+    { "scope": "meta.function-call", "foreground": "var(function)" },
+    // Types, Classes, Structs
+    { "scope": "entity.name.type, entity.name.class, entity.name.struct, entity.name.enum, entity.name.interface", "foreground": "var(type)", "font_style": "italic" },
+    { "scope": "storage.type", "foreground": "var(keyword)" }, // `class`, `struct` keywords
+    { "scope": "entity.other.inherited-class", "foreground": "var(type)", "font_style": "italic" },
+    { "scope": "meta.path", "foreground": "var(type)" }, // Type paths like std::vector
+    // Variables & Parameters
+    { "scope": "variable", "foreground": "var(variable)" },
+    { "scope": "variable.parameter", "foreground": "var(variable)" },
+    { "scope": "variable.language", "foreground": "var(keyword)", "font_style": "italic" }, // this, self
+    { "scope": "variable.other.object.property, variable.other.property", "foreground": "var(variable)" },
+    // Tags & Attributes (HTML/XML)
+    { "scope": "entity.name.tag", "foreground": "var(tag)" },
+    { "scope": "punctuation.definition.tag", "foreground": "var(comment)" },
+    { "scope": "entity.other.attribute-name", "foreground": "var(attribute)" },
+    // CSS
+    { "scope": "source.css entity.other.attribute-name.class", "foreground": "var(string)" }, // Class selectors
+    { "scope": "source.css entity.other.attribute-name.id", "foreground": "var(string)" }, // ID selectors
+    { "scope": "source.css support.type.property-name", "foreground": "var(attribute)" }, // Property names
+    { "scope": "source.css constant.other.color", "foreground": "var(number)" }, // Color values
+    { "scope": "source.css keyword.other.unit", "foreground": "var(number)" }, // Units (px, em)
+    // Markdown
+    { "scope": "markup.heading", "foreground": "var(keyword)", "font_style": "bold" },
+    { "scope": "markup.bold", "font_style": "bold" },
+    { "scope": "markup.italic", "font_style": "italic" },
+    { "scope": "markup.underline", "font_style": "underline" },
+    { "scope": "markup.list", "foreground": "var(number)" },
+    { "scope": "markup.quote", "foreground": "var(comment)", "font_style": "italic" },
+    { "scope": "markup.raw.inline, markup.raw.block", "foreground": "var(string)" },
+    { "scope": "markup.underline.link", "foreground": "var(function)" },
+    // JSON
+    { "scope": "source.json meta.structure.dictionary.json string.quoted.double.json", "foreground": "var(attribute)" }, // Keys
+    { "scope": "source.json meta.structure.dictionary.value.json string.quoted.double.json", "foreground": "var(string)" }, // String values
+    { "scope": "source.json constant.language.json", "foreground": "var(constant)" }, // true, false, null
+    { "scope": "source.json constant.numeric.json", "foreground": "var(number)" }, // Numbers
+    // Invalid & Deprecated
+    { "scope": "invalid", "foreground": "var(invalid)", "background": "color(var(invalid) alpha(0.1))" },
+    { "scope": "invalid.illegal", "foreground": "var(invalid)", "background": "color(var(invalid) alpha(0.1))" },
+    { "scope": "invalid.deprecated", "foreground": "var(deprecated)", "background": "color(var(deprecated) alpha(0.1))", "font_style": "italic" }
+  ]
+} 

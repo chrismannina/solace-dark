@@ -1,0 +1,35 @@
+{
+  "name": "solace-dark",
+  "version": "1.0.0",
+  "description": "A dark theme designed based on principles for visual comfort and productivity during long coding or writing sessions.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/solace-dark.git"
+  },
+  "keywords": [
+    "theme",
+    "dark-theme",
+    "color-scheme",
+    "vscode",
+    "obsidian",
+    "sublime",
+    "jetbrains",
+    "notepad++",
+    "terminal"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "echo 'Building all packages...' && npm run build --workspaces --if-present",
+    "test": "echo 'Testing all packages...' && npm run test --workspaces --if-present",
+    "package": "echo 'Packaging all packages...' && npm run package --workspaces --if-present"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  }
+} 

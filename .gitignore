@@ -1,0 +1,32 @@
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+dehydrated
+
+# IDE config files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Build files
+*.zip
+*.tar.gz
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Ignore generated files (like extension packages)
+*.vsix 

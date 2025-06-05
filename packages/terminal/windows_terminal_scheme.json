@@ -1,0 +1,31 @@
+{
+  "name": "Solace Dark",
+  "background": "#121212",
+  "foreground": "#ECECEC",
+  "cursorColor": "#ECECEC",
+  "selectionBackground": "#264F78",
+
+  "black": "#121212",
+  "brightBlack": "#555555",
+
+  "red": "#C25D65",
+  "brightRed": "#E87C8E",
+
+  "green": "#7BBF7B",
+  "brightGreen": "#9EDF9E",
+
+  "yellow": "#E4A567",
+  "brightYellow": "#F0C080",
+
+  "blue": "#5FAFFF",
+  "brightBlue": "#90D7FF",
+
+  "purple": "#B284E0",
+  "brightPurple": "#D8B4F2",
+
+  "cyan": "#65CCBB",
+  "brightCyan": "#8FF0E0",
+
+  "white": "#ECECEC",
+  "brightWhite": "#FFFFFF"
+} 
