@@ -1,0 +1,190 @@
+name: Quality Check & Release
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  release:
+    types: [ published ]
+
+jobs:
+  validate:
+    name: Validate Themes
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Run theme validation
+        run: node scripts/validate-themes.js
+        
+      - name: Generate code samples
+        run: node scripts/generate-previews.js
+        
+      - name: Check for required files
+        run: |
+          echo "Checking for required files..."
+          test -f README.md || (echo "Missing README.md" && exit 1)
+          test -f LICENSE || (echo "Missing LICENSE" && exit 1)
+          test -f CHANGELOG.md || (echo "Missing CHANGELOG.md" && exit 1)
+          test -f packages/vscode/package.json || (echo "Missing VS Code package.json" && exit 1)
+          test -f packages/vscode/themes/solace-dark-color-theme.json || (echo "Missing VS Code theme" && exit 1)
+          echo "All required files present ✅"
+
+  test-vscode-extension:
+    name: Test VS Code Extension
+    runs-on: ubuntu-latest
+    needs: validate
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install vsce
+        run: npm install -g vsce
+        
+      - name: Package VS Code extension
+        run: |
+          cd packages/vscode
+          vsce package --no-yarn
+          
+      - name: Upload extension artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: vscode-extension
+          path: packages/vscode/*.vsix
+
+  accessibility-check:
+    name: Accessibility Check
+    runs-on: ubuntu-latest
+    needs: validate
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          
+      - name: Install color contrast checker
+        run: npm install -g wcag-contrast
+        
+      - name: Check color contrast ratios
+        run: |
+          echo "Checking WCAG contrast ratios..."
+          # Primary text on background
+          npx wcag-contrast "#ECECEC" "#121212" --verbose
+          # Comments on background  
+          npx wcag-contrast "#8A8A8A" "#121212" --verbose
+          # Keywords on background
+          npx wcag-contrast "#B284E0" "#121212" --verbose
+          echo "Contrast checks completed ✅"
+
+  lint-and-format:
+    name: Lint and Format Check
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Check JSON formatting
+        run: |
+          echo "Checking JSON files..."
+          find . -name "*.json" -exec python -m json.tool {} \; > /dev/null
+          echo "JSON files are valid ✅"
+          
+      - name: Check file endings
+        run: |
+          echo "Checking for consistent line endings..."
+          if git ls-files -z | xargs -0 file | grep -v "text" | grep -v "empty" | grep -v "directory"; then
+            echo "❌ Found binary files that shouldn't be tracked"
+            exit 1
+          else
+            echo "File types check passed ✅"
+          fi
+
+  release:
+    name: Create Release Assets
+    runs-on: ubuntu-latest
+    needs: [validate, test-vscode-extension, accessibility-check]
+    if: github.event_name == 'release'
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Build all packages
+        run: npm run package
+        
+      - name: Create release archive
+        run: |
+          mkdir -p release
+          
+          # Create platform-specific archives
+          zip -r release/solace-dark-vscode.zip packages/vscode/
+          zip -r release/solace-dark-obsidian.zip packages/obsidian/
+          zip -r release/solace-dark-sublime.zip packages/sublime/
+          zip -r release/solace-dark-jetbrains.zip packages/jetbrains/
+          zip -r release/solace-dark-notepadpp.zip packages/notepad++/
+          zip -r release/solace-dark-terminal.zip packages/terminal/
+          
+          # Create complete archive
+          zip -r release/solace-dark-complete.zip packages/ README.md LICENSE CHANGELOG.md
+          
+      - name: Upload release assets
+        uses: softprops/action-gh-release@v1
+        with:
+          files: release/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+          
+      - name: Upload Trivy scan results
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: 'trivy-results.sarif' 

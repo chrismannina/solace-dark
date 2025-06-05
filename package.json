@@ -25,9 +25,24 @@
   "scripts": {
     "build": "echo 'Building all packages...' && npm run build --workspaces --if-present",
     "test": "echo 'Testing all packages...' && npm run test --workspaces --if-present",
-    "package": "echo 'Packaging all packages...' && npm run package --workspaces --if-present"
+    "package": "echo 'Packaging all packages...' && npm run package --workspaces --if-present",
+    "validate": "node scripts/validate-themes.js",
+    "generate-samples": "node scripts/generate-previews.js",
+    "dev": "npm run validate && npm run generate-samples",
+    "lint": "npm run lint --workspaces --if-present",
+    "format": "prettier --write \"**/*.{json,md,css}\"",
+    "accessibility-check": "node scripts/accessibility-check.js",
+    "release": "npm run validate && npm run build && npm run test",
+    "clean": "rm -rf packages/*/node_modules packages/*/*.vsix assets/code-samples",
+    "setup": "npm install && npm run validate && echo 'Setup complete! Run npm run dev to get started.'",
+    "vscode:package": "cd packages/vscode && vsce package",
+    "vscode:publish": "cd packages/vscode && vsce publish",
+    "docs:serve": "python -m http.server 8000 || python3 -m http.server 8000",
+    "contributors": "git log --format='%aN <%aE>' | sort -u > CONTRIBUTORS.md"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "prettier": "^3.0.0"
+  },
   "engines": {
     "node": ">=14.0.0",
     "npm": ">=6.0.0"
